@@ -5,7 +5,7 @@ var req_ip = function(req) {
 };
 
 var mqtt    = require('mqtt');
-var client  = mqtt.connect({ host: 'mqtt.laur.me', port: 9001 });
+var client  = mqtt.connect("test.mosquitto.org");
  
 var express = require('express');
 var app = express();
