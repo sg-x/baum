@@ -5,7 +5,7 @@ var req_ip = function(req) {
 };
 
 var mqtt    = require('mqtt');
-var client  = mqtt.connect('mqtt://test.mosquitto.org');
+var client  = mqtt.connect('mqtt://mqtt.laur.me:9001');
  
 var express = require('express');
 var app = express();
