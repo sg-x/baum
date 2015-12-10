@@ -19,21 +19,11 @@ app.get('/', function (req, res) {
    res.send('Hello World!');
   	
 });
-
+client.on('connect', function () {
+  client.subscribe('treepilaur');
+});
 app.get('/toggle', function (req, res) {
-  	led.read(function(err,val){
-	if(val==0){
-	 var stat=1;
-	} else {
-	var stat=0;	
-	}
-	led.write(stat,function(){
-	 res.json(stat);
-	});
-	
-	});
-
-	
+    client.publish('treepilaur', 'Hello mqtt');
 });
 
 var server = app.listen(80, function () {
