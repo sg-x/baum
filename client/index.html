@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+  <html ng-app="treepi" ng-controller="AppCtrl">
+    <head>
+      <link rel="shortcut icon" type="image/x-icon" href="favicon.ico">
+      <link href="http://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+      <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.3/css/materialize.min.css">
+      <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+      <title>TreePi</title>
+    </head>
+    <body>
+      <nav class="green darken-4" role="navigation">
+        <div class="nav-wrapper container"><a id="logo-container" href="#" class="brand-logo">TreePi</a>
+      </nav>
+  <div class="section no-pad-bot" id="index-banner">
+    <div class="container">
+      <br><br>
+      <h1 class="header center">TreePi</h1>
+      <div class="row center">
+        <div class="center-align">
+          <a ng-click="toggle()" class="waves-effect valign waves-light btn-large" ng-class="{green:status, red:!status}" style="height:200px;width:200px;">
+            <br>
+            <span ng-show="status">AUS</span>
+            <span ng-hide="status">AN</span>
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+      <script type="text/javascript" src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.3/js/materialize.min.js"></script>
+      <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.0-beta.2/angular.min.js"></script>
+      <script>
+        var app = angular.module('treepi', []);
+        app.controller('AppCtrl', function($scope,$http) {
+            $scope.status=false;
+            $scope.toggle=function(){
+              $http.get("/toggle").success(function(data){
+                $scope.status^=true;
+              });
+            }
+        });
+      </script>
+    </body>
+  </html>

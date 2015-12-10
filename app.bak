@@ -1,0 +1,44 @@
+var Gpio = require('onoff').Gpio,
+  led = new Gpio(4, 'out');
+
+var req_ip = function(req) {
+        return ( req.headers["X-Forwarded-For"]
+                                        || req.headers["x-forwarded-for"]
+                                        || req.client.remoteAddress );
+};
+
+var mqtt    = require('mqtt');
+var client  = mqtt.connect('mqtt://test.mosquitto.org');
+ 
+var express = require('express');
+var app = express();
+app.use(express.static('client'));
+
+app.get('/', function (req, res) {
+  console.log("IP:"+req_ip(req));
+   res.send('Hello World!');
+  	
+});
+
+app.get('/toggle', function (req, res) {
+  	led.read(function(err,val){
+	if(val==0){
+	 var stat=1;
+	} else {
+	var stat=0;	
+	}
+	led.write(stat,function(){
+	 res.json(stat);
+	});
+	
+	});
+
+	
+});
+
+var server = app.listen(80, function () {
+  var host = server.address().address;
+  var port = server.address().port;
+
+  console.log('Example app listening at http://%s:%s', host, port);
+});
